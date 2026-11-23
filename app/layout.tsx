@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Guest Sign In",
-  description: "Sign in to guest support",
+  title: "Airbnb Help Chat Refund Safety",
+  description:
+    "Guarded guest support chat with Supabase sign-in, server-side refund checks and prompt injection screening",
 };
 
 export default function RootLayout({

@@ -1,9 +1,10 @@
 """
-Beauty Insider Profile Service (FastAPI).
+Airbnb Help Chat Refund Safety: Guest Profile Service (FastAPI).
 
-Live-as-is loyalty profile API for local Docker deployment. Serves Beauty
-Insider member records over four routes: login, own-account lookup, and two
-profile lookups keyed by user_id in the path.
+Guarded guest support chat with Supabase sign-in, server-side refund checks
+and prompt injection screening. This live-as-is guest profile API is for local
+Docker deployment. It serves guest records over four routes: login,
+own-account lookup, and two profile lookups keyed by user_id in the path.
 
 This is the unpatched baseline: the profile routes resolve the requested
 user_id straight from the path and return the full member record after only
@@ -11,7 +12,7 @@ confirming that a session token is present. They never check that the token's
 member owns the requested profile.
 
 Run locally:
-    uvicorn beauty_insider_app:app --host 0.0.0.0 --port 8000
+    uvicorn app:app --host 0.0.0.0 --port 8000
 """
 
 from datetime import date
@@ -21,10 +22,10 @@ import uvicorn
 from fastapi import Depends, FastAPI, Header, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI(title="Beauty Insider Profile Service", version="1.0.0")
+app = FastAPI(title="Airbnb Help Chat Refund Safety: Guest Profile Service", version="1.0.0")
 
 
-# --- Seed data: 24 Beauty Insider members (ids 100341-100364) ---------------
+# --- Seed data: 24 guests (ids 100341-100364) -------------------------------
 MEMBERS: Dict[int, Dict] = {
     100341: {"member_id": 100341, "name": "Ava Reyes", "email": "ava.reyes@example.com", "tier": "Rouge", "points": 41250, "enrolled": "2019-03-14"},
     100342: {"member_id": 100342, "name": "Liam Cho", "email": "liam.cho@example.com", "tier": "VIB", "points": 12880, "enrolled": "2021-07-02"},
@@ -56,8 +57,8 @@ MEMBERS: Dict[int, Dict] = {
 # --- Provisioned test sessions ----------------------------------------------
 # token -> member_id
 SESSIONS: Dict[str, int] = {
-    "bi_sess_a7f3c9d2e5": 100341,  # Beauty Insider test account A
-    "bi_sess_b4e8d1a6c0": 100342,  # Beauty Insider test account B
+    "bi_sess_a7f3c9d2e5": 100341,  # Guest test account A
+    "bi_sess_b4e8d1a6c0": 100342,  # Guest test account B
 }
 
 # Convenience map surfaced for the local ZAP user setup.

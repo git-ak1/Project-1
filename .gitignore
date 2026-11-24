@@ -1,4 +1,5 @@
-# Secrets / environment files (never commit these)
+# Secrets / environment files (never commit these).
+# .env.local holds OPENROUTER_API_KEY and the Supabase settings.
 .env
 .env.*
 !.env.example
